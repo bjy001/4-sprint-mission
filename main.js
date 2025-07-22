@@ -1,3 +1,9 @@
+/**
+ *  등록일자 : 2025.07.22
+ *  등록자 : 변재윤
+ *
+ */
+
 import { fetchSampe, getArticle, getBadArticle, createArticle, getArticleList, deleteArticle, 
          getAxiosArticle, getAxiosArticleList, createAxiosArticle, deleteAxiosArticle } from './article/ArticleService.js';
 import { getProduct, getProductList, createProduct, deleteProduct, patchProduct,

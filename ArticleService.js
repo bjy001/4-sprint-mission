@@ -1,3 +1,7 @@
+/**
+ *   등록일 : 2025.07.22
+ *   등록자 : 변재윤
+ * */
 import axios from 'axios';
 
 export async function fetchSampe(){
