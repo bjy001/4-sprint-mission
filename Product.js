@@ -1,18 +1,11 @@
-class Product {
-    name;
-    description;
-    price;
-    tags;
-    images;
-    favoriteCount;
-
-    constructor(name, description, price, tags, images, favoriteCount){
+export class Product {
+    constructor(name, description, price, tags, images, favoriteCount = 0){
         this.name = name;
         this.description = description;
         this.price = price;
         this.tags = tags;
         this.images = images;
-        this.favoriteCount = 0;
+        this.favoriteCount = favoriteCount;
     };
 
     favorite() {

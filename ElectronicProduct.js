@@ -1,9 +1,7 @@
-class ElectronicProduct extends Product {
+export class ElectronicProduct extends Product {
     
-    constructor(manufacturer){
+    constructor(name, description, price, tags, images, favoriteCount,manufacturer){
         super(name, description, price, tags, images, favoriteCount);
         this.manufacturer = manufacturer;
-    }
-    
-
+    };
 }
