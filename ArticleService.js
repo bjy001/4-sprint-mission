@@ -155,7 +155,46 @@ export async function getAxiosColorSurvey(id){
     return res.data;
   };
 
-  
+// #[Axios Get Request 예제2]  
+/**
+ *  - Axios 에서는 인스턴스를 만들수 있는데 Request 마다 공통되는 부분이 있으면 그것을
+ *    인스턴스화 해서 설정할 수 있음.
+ *  - 예를들어 Request URL은 보통 경로만 다르고 앞부분은 항상 똑같은데
+ *    BASE URL으로 앞부분을 설정하고 Request Time out도 설정
+ */
+  const instance = axios.create({
+    baseURL: 'https://learn.codeit.kr/api', //URL은 대문자
+    timeout: 3000
+  });
+  //baseURL을 인스턴스화 해서 아래 부분처럼 사용
+ export async function getAxiosInstanceColorSurveys(params = {}){
+  console.log('====> (API) getAxiosInstanceColorSurveys..');
+  const res = await instance.get('/color-surveys', {
+               params
+             });
+  return res.data;
+ }
+
+ // #[Axios Post Request 예제3]  
+ /**
+  *  - Instance로 Request를 보내고 있기 때문에 모두 baseURL 과 timeout이 설정되어 있다.
+  *  - 앞으로 URL이 바뀌거나 해도 한군데서만 변경하면 된다.
+  */
+  export async function createAxiosInstanceColorSurvey(surveyData){
+    const res = await instance.post('/color-surveys', surveyData);
+    return res.data;
+  }
+
+  /* [Axions 오류 처리 예제1] */
+  /**
+   * - fetch함수는 Request 자체가 실패했을 때만 Promise가 reject 되고
+   *   400, 500 response가 돌아왔을 때는 Promise가 reject 되지 않는다.
+   * - axios는 fetch와 다른데 axios는 400, 500 response가 돌아와도
+   *   promise가 reject 된다.
+   * - request가 성공하고 200번대의 상태코드를 가진 respons가 돌아와야만 
+   *   promise가 fulfilled 된다. ==> 오류를 처리하기가 좀더 편하다.
+   * - 방법은 axios 함수를 호출할 때 try..catch 로 감싸주면 됨.
+   */
 
 //Article 목록
 export async function getArticleList(page = 1, pageSize = 5, keyword = ""){
