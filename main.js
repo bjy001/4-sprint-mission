@@ -7,7 +7,7 @@
 
 import { getColorSurveyList, getColorSurvey, createColorSurvey, getColorSurveys, getAxiosColorSurvey, 
          getAxiosColorSurveys,  createAxiosColorSurvey, getAxiosInstanceColorSurveys, createAxiosInstanceColorSurvey,
-         getArticleList, getArticle, getAxisArticle } from './ArticleService.js'
+         getArticleList, getArticle, createArticle, patchArticle, deleteArticle } from './ArticleService.js'
 
 async function main(){
     /* #[Get Request 예제1] */
@@ -112,14 +112,62 @@ async function main(){
    * */ 
 
     // ############### [1] Article ########################
-    // const articleList = await getArticleList();
-    // console.log(articleList);
+    const requestData = {
+      title: 'codeit 테스트북',  //id: 1937
+      content: '테스트 내용 codeit 시작..끝',
+      image: 'https://example.com/..'
+    };
 
-    // const articleData = await getArticle(1905);
-    // console.log(articleData);
+    const modifyData = {
+      title: 'codeit 테스트북(수정)', //id: 1937
+      content: '테스트 내용 codeit 시작..끝(수정)',
+      image: 'https://example.com/..(수정)'
+    };
 
-    // const articleAxisData = await getAxisArticle(1905);
-    // console.log(articleAxisData);
+    /** 1. getArticleList */
+    const articleList = await getArticleList();
+    console.log(articleList);
+
+    /** 2. getArticle */
+    const articleData = await getArticle(1905);
+    console.log(articleData);
+    
+    /** 3. createArticle */
+    try{
+      const resData = await createArticle(requestData);
+      console.log(resData);
+    } catch(e){
+      if (e.response){
+        console.log(e.response.data);
+      } else {
+        console.log('리퀘스트가 실패했습니다!');
+      }
+    }
+
+    /** 4. patchArticle */
+    try{
+      const updData = await patchArticle(modifyData, 1937);
+      console.log(updData);
+    } catch(e) {
+      if(e.response){
+        console.log(e.response.data);
+      } else {
+        console.log('리퀘스트가 실패했습니다.');
+      }
+    };
+
+    /** 5. deleteArticle */
+    try{
+      const delData = await deleteArticle(1937);
+      console.log(delData);
+    } catch(e) {
+      if(e.response){
+        console.log(e.response.data);
+      } else {
+        console.log('리퀘스트가 실패했습니다.');
+      }
+    };
+
 
 };
 

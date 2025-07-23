@@ -185,19 +185,19 @@ export async function getAxiosColorSurvey(id){
     return res.data;
   }
 
-  /* [Axions 오류 처리 예제1] */
-  /**
-   * - fetch함수는 Request 자체가 실패했을 때만 Promise가 reject 되고
-   *   400, 500 response가 돌아왔을 때는 Promise가 reject 되지 않는다.
-   * - axios는 fetch와 다른데 axios는 400, 500 response가 돌아와도
-   *   promise가 reject 된다.
-   * - request가 성공하고 200번대의 상태코드를 가진 respons가 돌아와야만 
-   *   promise가 fulfilled 된다. ==> 오류를 처리하기가 좀더 편하다.
-   * - 방법은 axios 함수를 호출할 때 try..catch 로 감싸주면 됨.
-   */
+/* 
+/*  ########### 스프린트 미션2 시작 ################
+*/
 
-//Article 목록
+/**
+ * getArticleList
+ * @param {*} page 
+ * @param {*} pageSize 
+ * @param {*} keyword 
+ * @returns 
+ */
 export async function getArticleList(page = 1, pageSize = 5, keyword = ""){
+  console.log('====> (API) getArticleList..');
   const url = new URL('https://panda-market-api-crud.vercel.app/articles');
   url.searchParams.append("page", page);
   url.searchParams.append("pageSize", pageSize);
@@ -208,7 +208,11 @@ export async function getArticleList(page = 1, pageSize = 5, keyword = ""){
   return res.json();
 };
 
-//Article 상세
+/**
+ * getArticle
+ * @param {*} id 
+ * @returns 
+ */
 export async function getArticle(id){
   console.log('====> (API) getArticle..');
   const url = new URL(`https://panda-market-api-crud.vercel.app/articles/${id}`);
@@ -225,78 +229,37 @@ export async function getArticle(id){
   return data;
 };
 
-//Article 상세 (Axios)
-export async function getAxisArticle(id){
-  console.log('====> (API) getAxisArticle..');
-  const url = new URL(`https://panda-market-api-crud.vercel.app/articles/${id}`);
-
-  return axios.get(url).then((res) => {
-    return res.data;
-  }).catch((error) => {
-    console.log("getArticle 에러(API)");
-    console.error(error.message);
-  })
+/**
+ * createArticle
+ * @param {*} articleData
+ * @returns 
+ */
+export async function createArticle(articleData){
+  console.log('====> (API) createArticle..');
+  const res = await axios.post('https://panda-market-api-crud.vercel.app/articles', articleData);
+  return res.data;
 };
 
+/**
+ * patchArticle
+ * @param {*} articleData, id 
+ * @returns 
+ */
+export async function patchArticle(articleData, id){
+  console.log('====> (API) patchArticle..');
+  const res = await axios.patch(`https://panda-market-api-crud.vercel.app/articles/${id}`, articleData);
+  return res.data;
+};
+
+/**
+ * deleteArticle
+ * @param {*} id 
+ * @returns 
+ */
+export async function deleteArticle(id){
+  console.log('====> (API) deleteArticle..');
+  const res = await axios.delete(`https://panda-market-api-crud.vercel.app/articles/${id}`);
+  return res.data;
+}
 
 
-// export async function createArticle(){
-//   const reqBody = {
-//         title: '변재윤 작성 테스트',
-//         content: '변재윤 게시글 작성입니다. 곧 삭제예정',
-//         image: 'https://example.com'
-//     };
-//   let resMsg;
-//   const res = await fetch('https://panda-market-api-crud.vercel.app/articles', {
-//               method: 'POST',
-//               body: JSON.stringify(reqBody),
-//               headers: {
-//                 'Content-Type': 'application/json'
-//               }
-//             }).then(response => {
-//               resMsg = '성공적으로 저장되었습니다.';
-//             }).catch(error => {
-//               resMsg = '저장 실패하였습니다. 서버 확인.';
-//             });
-//   // const data3 = await res.json();
-//   return resMsg;
-// };
-
-// export async function deleteArticle(id){
-//     let resMsg;
-//     const res = await fetch(`https://panda-market-api-crud.vercel.app/articles/${id}`, {
-//                 method: 'DELETE'
-//     }).then(response => {
-//         resMsg = '성공적으로 삭제되었습니다.';
-//     }).catch(error => {
-//         resMsg = '삭제 실패하였습니다. 서버확인.';
-//     })
-//     return resMsg;
-// }
-
-
-// export async function getAxiosArticle(){
-//   const res = await axios.get('https://panda-market-api-crud.vercel.app/articles');
-//   return res.data;
-// };
-
-// export async function getAxiosArticleList(id){
-//     let res;
-//     try{
-//         res = await axios.get(`https://panda-market-api-crud.vercel.app/articles/${id}`);
-//     }catch(error){
-//         console.error('API(getAxiosArticleList) 오류..');
-//     }
-    
-//     return res.data;
-// };
-
-// export async function createAxiosArticle(articleData){
-//     const res = await axios.post('https://panda-market-api-crud.vercel.app/articles', articleData);
-//     return res.data;
-// };
-
-// export async function deleteAxiosArticle(id){
-//     const res = await axios.delete(`https://panda-market-api-crud.vercel.app/articles/${id}`);
-//     return res.data;
-// }
