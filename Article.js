@@ -1,16 +1,16 @@
-class Article {
+export class Article {
     #title;
     #content;
     #writer;
     #likeCount;
     #createdAt;
 
-    constructor(title,content,writer, createdAt){
+    constructor(title,content,writer, createdAt, likeCount = 0){
         this.#title = title;
         this.#content = content;
         this.#writer = writer;
-        this.#likeCount = 0;
         this.#createdAt;
+        this.#likeCount = likeCount;
     };
 
     like(){
